@@ -3,6 +3,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager  # Import the manager
+
 import requests
 import streamlit as st
 import pandas as pd
@@ -10,7 +12,8 @@ import pandas as pd
 # Set up Selenium WebDriver (Ensure chromedriver is installed and PATH is set correctly)
 options = webdriver.ChromeOptions()
 options.add_argument("--headless")  # Run in headless mode to avoid opening a browser window
-driver = webdriver.Chrome(options=options)
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service, options=options)
 
 # List of tickers to retrieve data for
 tickers = ['AEE', 'REZ', '1AE', '1MC', 'NRZ']
